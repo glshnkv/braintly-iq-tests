@@ -1,0 +1,9 @@
+.DS_Store
+node_modules/
+
+# Local-only materials — not part of the service
+/docs/
+/presentation/
+/.claude/
+# Assignment brief from the employer — kept local, not published
+*.pdf
