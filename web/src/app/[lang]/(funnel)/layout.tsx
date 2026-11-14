@@ -1,4 +1,5 @@
 import { Header } from "@/components/Header";
+import { FunnelFooter } from "@/components/legal/FunnelFooter";
 import { StageBackground } from "@/components/quiz/CardStack";
 import { resolveLocale } from "@/i18n/server";
 
@@ -10,6 +11,7 @@ export default async function FunnelLayout({ children }: LayoutProps<"/[lang]">)
       <StageBackground />
       <Header locale={locale} languageLabel={dict.common.language} />
       <main className="flex-1 w-full max-w-[560px] mx-auto px-3 sm:px-4 pb-16 overflow-x-clip sm:overflow-x-visible">{children}</main>
+      <FunnelFooter dict={dict.legal} />
     </>
   );
 }

@@ -2,6 +2,8 @@
 
 import { useEffect, useState, type FormEvent } from "react";
 import { Button, CloseIcon, Field, LockIcon, MonoLabel } from "@/components/ui";
+import { LegalText } from "@/components/legal/LegalLink";
+import { STATEMENT_DESCRIPTOR } from "@/config/legal";
 import { CHECKOUT } from "@/config/product";
 import type { Dictionary } from "@/i18n";
 import type { CheckoutResponse, PaymentMethod } from "@/lib/api-types";
@@ -10,8 +12,10 @@ import { fmt } from "@/lib/format";
 import { formatCardNumber, formatExpiry, isCvcValid, isExpiryValid, isLuhnValid } from "@/lib/payments/card";
 
 interface Props {
-  dict: Dictionary["checkout"] & { errorGeneric: string; errorNetwork: string; demo: string };
+  dict: Dictionary["checkout"] & { errorGeneric: string; errorNetwork: string; demo: string; legal: Dictionary["legal"]["checkout"] };
   priceLabel: string;
+  /** Auto-renewal facts for the disclosure under the pay button. */
+  renewal: { days: number; price: string; period: number };
   onClose: () => void;
   onSuccess: (res: CheckoutResponse) => void;
 }
@@ -19,7 +23,7 @@ interface Props {
 type ErrorKey = keyof Dictionary["checkout"]["errors"];
 
 /** Bottom sheet on phones, centred dialog on larger screens. Simulates a payment provider. */
-export function CheckoutSheet({ dict, priceLabel, onClose, onSuccess }: Props) {
+export function CheckoutSheet({ dict, priceLabel, renewal, onClose, onSuccess }: Props) {
   const [number, setNumber] = useState<string>(CHECKOUT.demoCardNumber);
   const [expiry, setExpiry] = useState("");
   const [cvc, setCvc] = useState("");
@@ -141,6 +145,18 @@ export function CheckoutSheet({ dict, priceLabel, onClose, onSuccess }: Props) {
             {pending === "card" ? dict.processing : fmt(dict.pay, { price: priceLabel })}
           </Button>
         </form>
+
+        {/* Auto-renewal disclosure: the full terms, right at the point of payment. */}
+        <p className="mt-4 text-[11.5px] font-medium leading-relaxed text-ink/45 text-pretty">
+          <LegalText template={dict.legal.text} labels={dict.legal.labels} vars={renewal} />
+        </p>
+        <div className="mt-3 flex gap-2.5 rounded-control bg-gray-soft px-3.5 py-3 text-[11.5px] font-medium leading-relaxed text-ink/50">
+          <LockIcon className="mt-px size-3.5 shrink-0" />
+          <p>
+            {dict.legal.secure} {fmt(dict.legal.descriptor, { descriptor: STATEMENT_DESCRIPTOR })}
+          </p>
+        </div>
+
         <p className="mt-4 text-center text-[12px] font-medium leading-relaxed text-ink/40">{fmt(dict.testHint, { card: CHECKOUT.demoCardNumber })}</p>
         <p className="mt-1 text-center text-[12px] font-semibold text-orange-dark">{dict.demo}</p>
       </div>

@@ -1,3 +1,5 @@
+import type { LegalDoc } from "@/config/legal";
+
 /**
  * Russian dictionary — the source of truth for the dictionary shape.
  * Placeholders use {name} syntax and are filled by `fmt()`.
@@ -158,7 +160,7 @@ export const ru = {
     nameLabel: "Имя для сертификата (необязательно)",
     namePlaceholder: "Например, Анна",
     submit: "Получить результат",
-    privacy: "Только ваш отчёт и важные уведомления. Без спама.",
+    privacy: "Только ваш отчёт и важные уведомления. Без спама, отписка в один клик.",
     invalidEmail: "Проверьте email — кажется, в нём опечатка.",
   },
   paywall: {
@@ -209,6 +211,45 @@ export const ru = {
       card_declined: "Банк отклонил платёж. Попробуйте другую карту.",
       insufficient_funds: "Недостаточно средств на карте.",
       invalid_card: "Проверьте номер карты, срок и CVC.",
+    },
+  },
+  /**
+   * Legal notices. {doc} placeholders become links (see LegalText); each block carries its own
+   * link labels because Russian needs a different grammatical case in every sentence.
+   */
+  legal: {
+    docs: {
+      terms: "Публичная оферта",
+      privacy: "Политика конфиденциальности",
+      subscription: "Условия подписки",
+      refund: "Возврат средств",
+      cookies: "Политика cookie",
+      support: "Поддержка",
+      dataConsent: "Согласие на обработку данных",
+    },
+    docsLabel: "Документы",
+    rights: "© {year} Braintly. Все права защищены.",
+    footerNote:
+      "Тест носит познавательный характер и не является медицинской или психологической диагностикой. Доступ к полному отчёту предоставляется по подписке с автоматическим продлением, подробнее — в {subscription}.",
+    footerNoteLabels: { subscription: "Условиях подписки" },
+    email: {
+      text: "Нажимая «Получить результат», вы принимаете {terms} и {privacy} и даёте {dataConsent}.",
+      // Partial: English has no separate data-processing consent document.
+      labels: {
+        terms: "Публичную оферту",
+        privacy: "Политику конфиденциальности",
+        dataConsent: "согласие на обработку персональных данных",
+      } as Partial<Record<LegalDoc, string>>,
+    },
+    paywall: {
+      text: "Подписка продлевается автоматически, пока вы её не отмените. Продолжая, вы соглашаетесь с {subscription} и {terms}.",
+      labels: { subscription: "Условиями подписки", terms: "Публичной офертой" },
+    },
+    checkout: {
+      text: "Оплачивая, вы соглашаетесь на автоматическое продление: после {days} дней пробного периода с карты будет списываться {price} каждые {period} дней, пока вы не отмените подписку. Отменить можно в любой момент на странице результата или через {support}; чтобы следующего списания не было, отмените подписку не позднее чем за 24 часа до него. Подробнее — в {subscription}, {refund} и {terms}.",
+      labels: { support: "поддержку", subscription: "Условиях подписки", refund: "Политике возврата", terms: "Публичной оферте" },
+      secure: "Платёж защищён шифрованием. Данные карты обрабатывает платёжный провайдер и не хранятся на наших серверах.",
+      descriptor: "В выписке списание будет отображаться как {descriptor}.",
     },
   },
   result: {

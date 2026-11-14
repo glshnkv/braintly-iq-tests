@@ -3,6 +3,7 @@
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 import { Illustration } from "@/components/landing/Illustration";
+import { LegalText } from "@/components/legal/LegalLink";
 import {
   CelebLadder,
   DifficultyRings,
@@ -125,6 +126,7 @@ export function PaywallClient({ locale, dict }: Props) {
   const aboveHundred = teaser.iqDigitCount === 3;
   const ctaLabel = fmt(p.cta, { price: trialPrice });
   const terms = fmt(p.terms, { days: PRICING.trialDays, trial: trialPrice, price: fullPrice, date: formatDate(firstChargeDate, locale) });
+  const legalNote = <LegalText template={dict.legal.paywall.text} labels={dict.legal.paywall.labels} />;
   const hiddenDigits = "?".repeat(teaser.iqDigitCount - 1);
   const lockedIq = (
     <>
@@ -199,6 +201,7 @@ export function PaywallClient({ locale, dict }: Props) {
             {ctaLabel}
           </Button>
           <p className="text-center text-[12.5px] font-medium leading-relaxed text-ink/45 text-balance">{terms}</p>
+          <p className="text-center text-[11.5px] font-medium leading-relaxed text-ink/40 text-pretty">{legalNote}</p>
         </div>
       </section>
 
@@ -379,6 +382,7 @@ export function PaywallClient({ locale, dict }: Props) {
             {ctaLabel}
           </Button>
           <p className="text-center text-[12.5px] font-medium leading-relaxed text-white/45 text-balance">{terms}</p>
+          <p className="text-center text-[11.5px] font-medium leading-relaxed text-white/40 text-pretty">{legalNote}</p>
         </div>
       </section>
 
@@ -403,8 +407,9 @@ export function PaywallClient({ locale, dict }: Props) {
 
       {checkoutOpen && (
         <CheckoutSheet
-          dict={{ ...dict.checkout, errorGeneric: dict.common.errorGeneric, errorNetwork: dict.common.errorNetwork, demo: p.demo }}
+          dict={{ ...dict.checkout, errorGeneric: dict.common.errorGeneric, errorNetwork: dict.common.errorNetwork, demo: p.demo, legal: dict.legal.checkout }}
           priceLabel={trialPrice}
+          renewal={{ days: PRICING.trialDays, price: fullPrice, period: PRICING.billingPeriodDays }}
           onClose={closeCheckout}
           onSuccess={() => router.push(routes.result(locale))}
         />

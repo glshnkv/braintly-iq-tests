@@ -156,7 +156,7 @@ export const en: Dictionary = {
     nameLabel: "Name for the certificate (optional)",
     namePlaceholder: "e.g. Anna",
     submit: "Get my result",
-    privacy: "Only your report and important updates. No spam.",
+    privacy: "Only your report and important updates. No spam, unsubscribe in one click.",
     invalidEmail: "Please check your email — it looks like there's a typo.",
   },
   paywall: {
@@ -207,6 +207,36 @@ export const en: Dictionary = {
       card_declined: "Your bank declined the payment. Try another card.",
       insufficient_funds: "Insufficient funds on this card.",
       invalid_card: "Please check the card number, expiry and CVC.",
+    },
+  },
+  legal: {
+    docs: {
+      terms: "Terms of Use",
+      privacy: "Privacy Policy",
+      subscription: "Subscription Terms",
+      refund: "Refund Policy",
+      cookies: "Cookie Policy",
+      support: "Support",
+      dataConsent: "Data Processing Consent",
+    },
+    docsLabel: "Legal",
+    rights: "© {year} Braintly. All rights reserved.",
+    footerNote:
+      "This test is for self-discovery and is not a medical or psychological diagnosis. The full report is provided under an auto-renewing subscription — see the {subscription}.",
+    footerNoteLabels: { subscription: "Subscription Terms" },
+    email: {
+      text: "By tapping “Get my result”, you agree to our {terms} and {privacy} and consent to receive your report and service emails.",
+      labels: { terms: "Terms of Use", privacy: "Privacy Policy" },
+    },
+    paywall: {
+      text: "Your subscription renews automatically until you cancel. By continuing, you agree to the {subscription} and {terms}.",
+      labels: { subscription: "Subscription Terms", terms: "Terms of Use" },
+    },
+    checkout: {
+      text: "By paying, you authorize recurring charges: after the {days}-day trial, your card will be charged {price} every {period} days until you cancel. You can cancel anytime on your result page or via {support} — at least 24 hours before the next charge to avoid it. See the {subscription}, {refund} and {terms}.",
+      labels: { support: "Support", subscription: "Subscription Terms", refund: "Refund Policy", terms: "Terms of Use" },
+      secure: "Payments are encrypted. Card details are processed by our payment provider and never stored on our servers.",
+      descriptor: "The charge will appear on your statement as {descriptor}.",
     },
   },
   result: {

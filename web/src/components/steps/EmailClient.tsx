@@ -2,6 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { useEffect, useState, type FormEvent } from "react";
+import { LegalText } from "@/components/legal/LegalLink";
 import { CardStack } from "@/components/quiz/CardStack";
 import { Button, CheckIcon, ErrorBox, Field, LockIcon, Spinner } from "@/components/ui";
 import type { Dictionary } from "@/i18n";
@@ -12,7 +13,8 @@ import { routes } from "@/lib/routes";
 
 interface Props {
   locale: Locale;
-  dict: Dictionary["email"] & Pick<Dictionary["common"], "loading" | "errorGeneric" | "errorNetwork" | "retry">;
+  dict: Dictionary["email"] &
+    Pick<Dictionary["common"], "loading" | "errorGeneric" | "errorNetwork" | "retry"> & { consent: Dictionary["legal"]["email"] };
 }
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
@@ -106,6 +108,10 @@ export function EmailClient({ locale, dict }: Props) {
           <p className="mt-4 text-center text-[13px] font-medium text-ink/45 text-balance">
             <LockIcon className="mr-1.5 inline size-3.5 -translate-y-px" />
             {dict.privacy}
+          </p>
+          {/* Clickwrap consent: shown right under the button that triggers it, before any data is sent. */}
+          <p className="mt-3 text-center text-[11.5px] font-medium leading-relaxed text-ink/40 text-pretty">
+            <LegalText template={dict.consent.text} labels={dict.consent.labels} />
           </p>
         </form>
       </CardStack>

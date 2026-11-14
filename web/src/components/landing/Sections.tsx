@@ -1,6 +1,8 @@
 import type { ReactNode } from "react";
 import { CelebLadder, Distribution, IqBandScale, ProfileRadar, type LadderRow } from "@/components/report/charts";
+import { LegalLink, LegalText } from "@/components/legal/LegalLink";
 import { Logo } from "@/components/Logo";
+import { COPYRIGHT_YEAR, FOOTER_DOCS } from "@/config/legal";
 import { LinkButton, MonoLabel } from "@/components/ui";
 import { TYPE_ILLUSTRATION, type IllustrationId } from "@/config/illustrations";
 import { PRICING } from "@/config/product";
@@ -381,9 +383,22 @@ export function Footer({ locale, dict }: Props) {
           ))}
         </nav>
       </div>
-      <div className="mt-16 flex flex-col gap-2 md:flex-row md:justify-between text-label normal-case tracking-[0.02em] text-ink/40">
-        <span>© 2026 Braintly</span>
-        <span>{dict.common.disclaimer}</span>
+      <div className="mt-14 border-t border-ink/[0.08] pt-8 flex flex-col gap-6">
+        <nav aria-label={dict.legal.docsLabel}>
+          <ul className="flex flex-wrap gap-x-6 gap-y-2.5 text-[14px] font-semibold text-ink/55">
+            {FOOTER_DOCS.map((doc) => (
+              <li key={doc}>
+                <LegalLink doc={doc} plain className="hover:text-ink">
+                  {dict.legal.docs[doc]}
+                </LegalLink>
+              </li>
+            ))}
+          </ul>
+        </nav>
+        <p className="max-w-3xl text-[13px] leading-relaxed text-ink/45">
+          <LegalText template={dict.legal.footerNote} labels={dict.legal.footerNoteLabels} />
+        </p>
+        <p className="text-label normal-case tracking-[0.02em] text-ink/40">{fmt(dict.legal.rights, { year: COPYRIGHT_YEAR })}</p>
       </div>
     </footer>
   );
