@@ -53,6 +53,6 @@ Key decisions:
 
 ## Deploy (Vercel + Neon)
 
-1. Create a Neon project and copy the **pooled** connection string.
-2. `DATABASE_URL=<neon url> npm run db:migrate`
-3. Import the repo in Vercel with **Root Directory = `web`**, set `DATABASE_URL`, `ADMIN_USER`, `ADMIN_PASSWORD`.
+1. Import the repo in Vercel with **Root Directory = `web`**; set `ADMIN_USER`, `ADMIN_PASSWORD` (and optionally `NEXT_PUBLIC_SITE_URL`).
+2. Project → Storage → create a **Neon** database and connect it: this sets `DATABASE_URL` / `DATABASE_URL_UNPOOLED`.
+3. Deploy. Vercel runs `npm run vercel-build`, which applies pending Drizzle migrations before `next build`.
